@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "765143424561",
+    "project_id": "o-quiz-95118",
+    "storage_bucket": "o-quiz-95118.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765143424561:android:f4fcf120230f6e02b27f10",
+        "android_client_info": {
+          "package_name": "com.example.sharafat_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMwoNwAIJJ69zVcjcvLJWqT5YdvCypZ3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
