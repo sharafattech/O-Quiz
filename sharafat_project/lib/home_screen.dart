@@ -1,5 +1,10 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sharafat_project/adminpanel/adminpanel.dart';
+
+import 'quiz_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,52 +14,61 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController sampledata1 = new TextEditingController();
-  TextEditingController sampledata2 = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: sampledata1,
-              decoration: InputDecoration(hintText: 'sampledata1'),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Quiz App',
+            style: TextStyle(
+                fontSize: 35, fontWeight: FontWeight.bold, color: Colors.teal),
+          ),
+          SizedBox(height: 200),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => QuizScreen()));
+            },
+            child: Text('Start Quiz'),
+            style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(36.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AdminPanelScreen()));
+              },
+              child: Text('Admin Panel'),
+              style: ElevatedButton.styleFrom(shape: StadiumBorder()),
             ),
-            TextFormField(
-              controller: sampledata2,
-              decoration: InputDecoration(hintText: 'sampledata2'),
-            ),
-            Padding(padding: EdgeInsets.all(10)),
-            ElevatedButton(
-                onPressed: () {
-                  senddatatodb();
-                },
-                child: Text('add')),
-          ],
-        ),
-      ),
+          )
+        ],
+      )),
     );
   }
-}
 
-Future<void> senddatatodb() async {
-  var collection = await FirebaseFirestore.instance.collection('O-Quiz');
+  Future<void> addDataToDB() async {
+    var collection = await FirebaseFirestore.instance.collection('all_quiz');
 
-  var sampledata1;
-  var sampledata2;
-  Map<String, dynamic> quizMap = {
-    'Field1': sampledata1.text, 'Field2': sampledata2.text
+    //A Quiz as Map
+    Map<String, dynamic> quizMap = {
+      'question': 'What is the capital of France?',
+      'answerList': [
+        {'answer': 'Berlin', 'isCorrect': false},
+        {'answer': 'London', 'isCorrect': false},
+        {'answer': 'Paris', 'isCorrect': true},
+        {'answer': 'Madrid', 'isCorrect': false},
+      ]
+    };
+    //Simple Data
+    // var data = {'quiestion': 'What is the capital Of Bangladesh'};
 
-    // 'question': 'What is the capital of Bangladesh',
-    // 'answerList': [
-    //   {'answer': 'Berlin', 'iscorrect': false},
-    //   {'answer': 'hongkong', 'iscorrect': false},
-    //   {'answer': 'paris', 'iscorrect': false},
-    //   {'answer': 'Dhaka', 'iscorrect': true}
-    // ]
-  };
-  // var quizdata = {'question': 'What is the capital of france'};
-  collection.add(quizMap);
+    collection.add(quizMap);
+  }
 }
